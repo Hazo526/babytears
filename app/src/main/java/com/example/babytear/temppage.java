@@ -21,7 +21,7 @@ public class temppage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent exit4Intent=new Intent(getApplicationContext(), homepage.class);
-                startActivity(exit4btn);
+
             }
         });
     }

@@ -1,28 +1,32 @@
 package com.example.babytear;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.net.Uri;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 public class videopage extends AppCompatActivity {
 
-    Button exit3btn;
+    VideoView vidView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_videopage);
+        vidView=(VideoView)findViewById(R.id.vidView);
 
-        exit3btn=(Button)findViewById(R.id.exit3btn);
+        String vidAddress = "https://youtu.be/RXWYDeGhe24";
+        Uri vidUri = Uri.parse(vidAddress);
+        vidView.setVideoURI(vidUri);
 
-        exit3btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent exit3Intent=new Intent(getApplicationContext(), homepage.class);
-                startActivity(exit3Intent);
-            }
-        });
+        MediaController vidControl = new MediaController(this);
+        vidControl.setAnchorView(vidView);
+        vidView.setMediaController(vidControl);
+
+        vidView.start();
+
     }
+
+
 }
