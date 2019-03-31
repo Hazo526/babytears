@@ -18,6 +18,7 @@
         <activity android:name=".audiopage" />
         <activity android:name=".homepage" />
         <activity android:name=".RecordAudio" />
+        <activity android:name=".PlaybackAudio" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
