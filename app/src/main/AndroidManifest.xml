@@ -3,6 +3,8 @@
     package="com.example.babytear">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name='android.permission.RECORD_AUDIO' />
 
     <application
         android:allowBackup="true"
@@ -15,6 +17,7 @@
         <activity android:name=".temppage" />
         <activity android:name=".audiopage" />
         <activity android:name=".homepage" />
+        <activity android:name=".RecordAudio" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

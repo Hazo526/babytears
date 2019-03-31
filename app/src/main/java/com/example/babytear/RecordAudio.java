@@ -37,10 +37,12 @@ public class RecordAudio extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     myAudioRecorder.prepare();
+                    myAudioRecorder.start();
+                } catch (IllegalStateException ise) {
+                    ise.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                myAudioRecorder.start();
                 record.setEnabled(false);
                 stop.setEnabled(true);
                 Toast.makeText(getApplicationContext(), "Recording started", Toast.LENGTH_LONG).show();
@@ -66,16 +68,12 @@ public class RecordAudio extends AppCompatActivity {
                 MediaPlayer mediaPlayer = new MediaPlayer();
                 try {
                     mediaPlayer.setDataSource(outputFile);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
                     mediaPlayer.prepare();
-                } catch (IOException e) {
+                    mediaPlayer.start();
+                    Toast.makeText(getApplicationContext(), "Playing Audio", Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                mediaPlayer.start();
-                Toast.makeText(getApplicationContext(), "Playing Audio", Toast.LENGTH_LONG).show();
             }
         });
 
