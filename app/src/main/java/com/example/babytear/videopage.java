@@ -16,7 +16,7 @@ public class videopage extends AppCompatActivity {
         setContentView(R.layout.activity_videopage);
         vidView=(VideoView)findViewById(R.id.vidView);
 
-        String vidAddress = "https://youtu.be/RXWYDeGhe24";
+        String vidAddress = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
         Uri vidUri = Uri.parse(vidAddress);
         vidView.setVideoURI(vidUri);
 
