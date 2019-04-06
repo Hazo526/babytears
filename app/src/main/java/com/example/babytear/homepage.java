@@ -30,7 +30,7 @@ public class homepage extends AppCompatActivity {
         videobtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent videoIntent = new Intent(getApplicationContext(), videopage.class);
+                Intent videoIntent = new Intent(getApplicationContext(), PreferenceActivity.class);
                 startActivity(videoIntent);
             }
         });

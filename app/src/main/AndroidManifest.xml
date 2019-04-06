@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name='android.permission.RECORD_AUDIO' />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".videopage"></activity>
+        <activity android:name=".PreferenceActivity"></activity>
+        <activity android:name=".MjpegActivity" />
+        <activity android:name=".videopage" />
         <activity android:name=".temppage" />
         <activity android:name=".audiopage" />
         <activity android:name=".homepage" />
