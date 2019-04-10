@@ -31,7 +31,7 @@ public class MjpegActivity extends Activity {
         Bundle bundle = getIntent().getExtras();
         String hostname = bundle.getString(com.example.babytear.PreferenceActivity.KEY_HOSTNAME);
         String portnum =  bundle.getString(com.example.babytear.PreferenceActivity.KEY_PORTNUM);
-        new DoRead().execute( hostname, portnum);
+        new DoRead().execute(hostname, portnum);
     }
 
 

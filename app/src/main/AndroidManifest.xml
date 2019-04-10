@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PreferenceActivity"></activity>
+        <activity android:name=".PreferenceActivity"/>
         <activity android:name=".MjpegActivity" />
         <activity android:name=".videopage" />
         <activity android:name=".temppage" />

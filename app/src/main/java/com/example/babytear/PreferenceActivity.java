@@ -41,7 +41,7 @@ public class PreferenceActivity extends Activity {
     /*
      * This function is called when user clicks start button.
      */
-    public void onClick( View view){
+    public void onClick(View view){
         // get data from EditText components
         EditText etHost = (EditText)findViewById( R.id.editText_hostname);
         EditText etPort = (EditText)findViewById( R.id.editText_portnum);
@@ -68,6 +68,6 @@ public class PreferenceActivity extends Activity {
         Intent intent = new Intent( this, com.example.babytear.MjpegActivity.class);
         intent.putExtra( KEY_HOSTNAME, hostname);
         intent.putExtra( KEY_PORTNUM, portnum);
-        this.startActivity( intent);
+        this.startActivity(intent);
     }
 }
