@@ -9,7 +9,28 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            moduleName "ImageProc"
+            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+        }
+
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['src/main.jnilibs']
+        }
+    }
+
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'armeabi-v7a'
+            universalApk true
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -27,4 +48,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.squareup.okhttp:okhttp:2.5.0'
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient-android', version: '4.3.5.1'
+    implementation group: 'cz.msebera.android', name: 'httpclient', version: '4.5.3'
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient-android', version: '4.3.5.1'
 }

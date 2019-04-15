@@ -13,9 +13,7 @@ import java.util.ArrayList;
 public class CustomAudioAdaptor extends BaseAdapter implements ListAdapter {
     private ArrayList<String> list = new ArrayList<String>();
     private Context context;
-
-
-
+    
     public CustomAudioAdaptor(ArrayList<String> list, Context context) {
         this.list = list;
         this.context = context;

@@ -1,34 +1,58 @@
-//UNUSED
-
 package com.example.babytear;
 
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.net.Uri;
-import android.widget.MediaController;
-import android.widget.VideoView;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
 public class videopage extends AppCompatActivity {
 
-    VideoView vidView;
+    private WebView webView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_videopage);
-        vidView=(VideoView)findViewById(R.id.vidView);
 
-        String vidAddress = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
-        Uri vidUri = Uri.parse(vidAddress);
-        vidView.setVideoURI(vidUri);
+        this.webView = (WebView) findViewById(R.id.webview1);
+        int default_zoom_level = 100;
+        webView.setInitialScale(default_zoom_level);
 
-        MediaController vidControl = new MediaController(this);
-        vidControl.setAnchorView(vidView);
-        vidView.setMediaController(vidControl);
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
+        webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
 
-        vidView.start();
+        WebViewClientImpl webViewClient = new WebViewClientImpl(this);
+        webView.setWebViewClient(webViewClient);
 
+
+        webView.post(new Runnable() {
+            @Override
+            public void run() {
+                int width = webView.getWidth();
+                int height = webView.getHeight();
+                webView.loadUrl("http://172.22.210.157:8090");
+            }
+        });
+
+        /*webView.loadUrl("https://www.journaldev.com");*/
     }
 
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && this.webView.canGoBack()) {
+            this.webView.goBack();
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
 
 }
