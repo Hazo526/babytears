@@ -30,7 +30,7 @@ public class audiopage extends AppCompatActivity {
         playbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent play2Intent = new Intent(getApplicationContext(), PlaybackAudio.class);
+                Intent play2Intent = new Intent(getApplicationContext(), WhiteNoise.class);
                 startActivity(play2Intent);
             }
         });
