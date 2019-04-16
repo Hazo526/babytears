@@ -1,32 +1,21 @@
 package com.example.babytear;
 
 
-import android.os.AsyncTask;
-
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import java.io.BufferedReader;
 
-import java.io.InputStreamReader;
-import java.net.ServerSocket;
 import java.net.Socket;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.net.Socket;
-import java.net.UnknownHostException;
 
 import java.io.OutputStream;
+
+
+
 import java.net.InetAddress;
-import java.net.Socket;
-import java.io.DataOutputStream;
+
 
 
 public class WhiteNoise extends AppCompatActivity {
@@ -41,6 +30,7 @@ public class WhiteNoise extends AppCompatActivity {
             return null;
         }
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,14 +60,42 @@ public class WhiteNoise extends AppCompatActivity {
         whitenoisestop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                whitenoisesound.stop();
+                whitenoisesound.pause();
+                new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            Socket socket = new Socket(getInet(), port);
+                            OutputStream outStream = socket.getOutputStream();
+                            String command = "STOP";
+                            outStream.write(command.getBytes("UTF-8"));
+                            command = "EXIT";
+                            outStream.write(command.getBytes("UTF-8"));
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    }
+                }).start();
             }
+
         });
 
         whitenoisesend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            /* */
+                new Thread (new Runnable() {
+                    public void run() {
+                        try {
+                            Socket socket = new Socket(getInet(), port);
+                            OutputStream outStream = socket.getOutputStream();
+                            String command = "PLAY1";
+                            outStream.write(command.getBytes("UTF-8"));
+                            command = "EXIT";
+                            outStream.write(command.getBytes("UTF-8"));
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    }
+                }).start();
             }
         });
 
@@ -91,7 +109,42 @@ public class WhiteNoise extends AppCompatActivity {
         lullabystop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                lullabysound.stop();
+                lullabysound.pause();
+                new Thread (new Runnable() {
+                    public void run() {
+                        try {
+                            Socket socket = new Socket(getInet(), port);
+                            OutputStream outStream = socket.getOutputStream();
+                            String command = "STOP";
+                            outStream.write(command.getBytes("UTF-8"));
+                            command = "EXIT";
+                            outStream.write(command.getBytes("UTF-8"));
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    }
+                }).start();
+            }
+
+        });
+
+        lullabysend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread (new Runnable() {
+                    public void run() {
+                        try {
+                            Socket socket = new Socket(getInet(), port);
+                            OutputStream outStream = socket.getOutputStream();
+                            String command = "PLAY2";
+                            outStream.write(command.getBytes("UTF-8"));
+                            command = "EXIT";
+                            outStream.write(command.getBytes("UTF-8"));
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    }
+                }).start();
             }
         });
 
@@ -105,15 +158,26 @@ public class WhiteNoise extends AppCompatActivity {
         choirstop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                choirsound.stop();
+                choirsound.pause();
+                new Thread (new Runnable() {
+                    public void run() {
+                        try {
+                            Socket socket = new Socket(getInet(), port);
+                            OutputStream outStream = socket.getOutputStream();
+                            String command = "STOP";
+                            outStream.write(command.getBytes("UTF-8"));
+                            command = "EXIT";
+                            outStream.write(command.getBytes("UTF-8"));
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    }
+                }).start();
             }
+
         });
 
-
-
-
-
-        whitenoisesend.setOnClickListener(new View.OnClickListener() {
+        choirsend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new Thread (new Runnable() {
@@ -121,7 +185,9 @@ public class WhiteNoise extends AppCompatActivity {
                         try {
                             Socket socket = new Socket(getInet(), port);
                             OutputStream outStream = socket.getOutputStream();
-                            String command = "PLAY1";
+                            String command = "PLAY3";
+                            outStream.write(command.getBytes("UTF-8"));
+                            command = "EXIT";
                             outStream.write(command.getBytes("UTF-8"));
                         } catch (Exception e) {
                             System.out.println(e);
