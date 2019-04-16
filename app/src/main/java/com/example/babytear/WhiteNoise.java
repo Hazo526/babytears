@@ -1,14 +1,29 @@
 package com.example.babytear;
 
-import android.media.MediaRecorder;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.io.DataOutputStream;
+
+
 public class WhiteNoise extends AppCompatActivity {
     private Button whitenoiseplay, whitenoisesend, lullabyplay, lullabysend, choirplay, choirsend, whitenoisestop, lullabystop, choirstop;
+    public int port = 5560;
+    public InetAddress getInet() {
+        InetAddress ip;
+        try {
+            return InetAddress.getByName("172.22.210.157");
+        } catch(Exception e)  {
+            System.out.println(e);
+            return null;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +85,22 @@ public class WhiteNoise extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
+        whitenoisesend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Thread (new Runnable() {
+                    public void run() {
+                        try {
+                            Socket socket = new Socket(getInet(), port);
+                            OutputStream outStream = socket.getOutputStream();
+                            String command = "PLAY1";
+                            outStream.write(command.getBytes("UTF-8"));
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    }
+                }).start();
+            }
+        });
     }
 }
