@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class homepage extends AppCompatActivity {
-    Button audiobtn, videobtn, exitbtn1, tempbtn, testbtn;
+    Button audiobtn, videobtn, exitbtn1, MLbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +18,7 @@ public class homepage extends AppCompatActivity {
         audiobtn=(Button)findViewById(R.id.audiobtn);
         videobtn=(Button)findViewById(R.id.videobtn);
         exitbtn1=(Button)findViewById(R.id.exitbtn1);
+        MLbtn = (Button)findViewById(R.id.ML);
 
         audiobtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,10 +46,13 @@ public class homepage extends AppCompatActivity {
             }
         });
 
-
-
-
-
+        MLbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mlIntent = new Intent(getApplicationContext(), MLPage.class);
+                startActivity(mlIntent);
+            }
+        });
 
     }
 }
