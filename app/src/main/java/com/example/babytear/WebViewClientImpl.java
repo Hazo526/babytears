@@ -18,7 +18,7 @@ public class WebViewClientImpl extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView webView, String url) {
-        if(url.indexOf("http://172.22.210.157:8090") > -1 ) return false;
+        if(url.indexOf("http://172.22.210.157:8090/stream?width=1640&height=2160/video.mjpeg") > -1 ) return false;
 
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         activity.startActivity(intent);

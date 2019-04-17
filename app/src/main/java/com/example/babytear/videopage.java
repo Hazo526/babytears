@@ -37,11 +37,10 @@ public class videopage extends AppCompatActivity {
             public void run() {
                 int width = webView.getWidth();
                 int height = webView.getHeight();
-                webView.loadUrl("http://172.22.210.157:8090");
+                webView.loadUrl("http://172.22.210.157:8090/stream?width=1640&height=2160/video.mjpeg");
             }
         });
 
-        /*webView.loadUrl("https://www.journaldev.com");*/
     }
 
 

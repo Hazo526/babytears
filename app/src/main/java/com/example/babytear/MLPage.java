@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.DataInputStream;
@@ -21,9 +22,10 @@ import java.net.Socket;
 
 public class MLPage extends AppCompatActivity {
 
-    private Button why, exitbtn;
+    private Button why, exitMLbtn;
     public int port = 5560;
     public String thisMessage = "";
+    public TextView belly, burping, discomfort, hungry, tired, none;
 
     public InetAddress getInet() {
         InetAddress ip;
@@ -35,13 +37,19 @@ public class MLPage extends AppCompatActivity {
         }
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mlpage);
 
         why = (Button) findViewById(R.id.MLwhy);
+
+        belly=findViewById(R.id.textView1);
+        burping=findViewById(R.id.textView2);
+        discomfort=findViewById(R.id.textView3);
+        hungry=findViewById(R.id.textView4);
+        tired=findViewById(R.id.textView5);
+        none=findViewById(R.id.textView6);
 
         why.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +61,8 @@ public class MLPage extends AppCompatActivity {
                             OutputStream outStream = socket.getOutputStream();
                             DataInputStream dis = new DataInputStream(socket.getInputStream());
 
+
+
                             String command = "PREDICT";
                             outStream.write(command.getBytes("UTF-8"));
 
@@ -60,13 +70,44 @@ public class MLPage extends AppCompatActivity {
                             byte[] messageByte = new byte[1000];
                             while(!end) {
                                 int bytesRead = dis.read(messageByte);
-                                String message = new String(messageByte, 0, bytesRead);
+                                /* added final */
+                                final String message = new String(messageByte, 0, bytesRead);
                                 if (message.length() == 10) { //change length
                                     end = true;
                                 }
-                                System.out.println(message); //replace this with function calls
-                            }
 
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (message.equals("belly pain")){
+                                            belly.setVisibility(View.VISIBLE);
+                                        }
+                                        else if(message.equals("burping")){
+                                            burping.setVisibility(View.VISIBLE);
+                                        }
+                                        else if(message.equals("discomfort")){
+                                            discomfort.setVisibility(View.VISIBLE);
+                                        }
+                                        else if(message.equals("--hungry--")){
+                                            hungry.setVisibility(View.VISIBLE);
+                                        }
+                                        else if(message.equals("---tired--")){
+                                            tired.setVisibility(View.VISIBLE);
+                                        }
+                                        else if(message.equals("---none---")){
+                                            none.setVisibility(View.VISIBLE);
+                                        }
+                                        else {
+                                            belly.setVisibility(View.VISIBLE);
+                                            burping.setVisibility(View.VISIBLE);
+                                            discomfort.setVisibility(View.VISIBLE);
+                                            hungry.setVisibility(View.VISIBLE);
+                                            tired.setVisibility(View.VISIBLE);
+                                            none.setVisibility(View.VISIBLE);
+                                        }
+                                    }
+                                });
+                            }
                             command = "EXIT";
                             outStream.write(command.getBytes("UTF-8"));
                         } catch (Exception e) {
@@ -77,6 +118,13 @@ public class MLPage extends AppCompatActivity {
             }
         });
 
+        exitMLbtn=findViewById(R.id.exitMLbtn);
+        exitMLbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent exitMLintent = new Intent(getApplicationContext(), homepage.class);
+                startActivity(exitMLintent);
+            }
+        });
     }
-
 }
