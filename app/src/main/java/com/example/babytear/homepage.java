@@ -1,24 +1,31 @@
 package com.example.babytear;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
-import android.preference.PreferenceActivity;
+import android.os.Build;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
 public class homepage extends AppCompatActivity {
-    Button audiobtn, videobtn, exitbtn1, MLbtn;
+    Button audiobtn, videobtn, exitbtn1, MLbtn, notifbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
 
-        audiobtn=(Button)findViewById(R.id.audiobtn);
-        videobtn=(Button)findViewById(R.id.videobtn);
-        exitbtn1=(Button)findViewById(R.id.exitbtn1);
-        MLbtn = (Button)findViewById(R.id.ML);
+        audiobtn = (Button) findViewById(R.id.audiobtn);
+        videobtn = (Button) findViewById(R.id.videobtn);
+        exitbtn1 = (Button) findViewById(R.id.exitbtn1);
+        MLbtn = (Button) findViewById(R.id.ML);
+        notifbtn = (Button) findViewById(R.id.notifbtn);
 
         audiobtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +60,6 @@ public class homepage extends AppCompatActivity {
                 startActivity(mlIntent);
             }
         });
-
     }
 }
+
