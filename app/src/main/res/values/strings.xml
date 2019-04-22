@@ -11,4 +11,5 @@
     <string name="width">Width</string>
     <string name="defaultWidth">320</string>
     <string name="defaultHeight">240</string>
+    <string name="newapp_name">BabyPal</string>
 </resources>

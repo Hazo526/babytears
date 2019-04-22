@@ -11,26 +11,45 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
 
 
 public class homepage extends AppCompatActivity {
-    Button audiobtn, videobtn, exitbtn1, MLbtn, notifbtn;
+    ImageView audiobtn, videobtn, MLbtn;
+    Button exitbtn1;
+    Button notif;
+    public int port = 5560;
+
+    public InetAddress getInet() {
+        InetAddress ip;
+        try {
+            return InetAddress.getByName("172.22.210.157");
+        } catch(Exception e)  {
+            System.out.println(e);
+            return null;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
 
-        audiobtn = (Button) findViewById(R.id.audiobtn);
-        videobtn = (Button) findViewById(R.id.videobtn);
-        exitbtn1 = (Button) findViewById(R.id.exitbtn1);
-        MLbtn = (Button) findViewById(R.id.ML);
-        notifbtn = (Button) findViewById(R.id.notifbtn);
+        audiobtn = findViewById(R.id.audiobtn);
+        videobtn = findViewById(R.id.videobtn);
+        exitbtn1 = findViewById(R.id.exitbtn1);
+        MLbtn = findViewById(R.id.ML);
+        notif = findViewById(R.id.notifText);
 
         audiobtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent audioIntent = new Intent(getApplicationContext(), audiopage.class);
+                Intent audioIntent = new Intent(getApplicationContext(), WhiteNoise.class);
                 startActivity(audioIntent);
             }
         });
@@ -39,8 +58,27 @@ public class homepage extends AppCompatActivity {
         exitbtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent exit1Intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(exit1Intent);
+                new Thread (new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Socket socket = new Socket(getInet(), port);
+                            OutputStream outStream = socket.getOutputStream();
+                            String command = "ALARM";
+                            outStream.write(command.getBytes("UTF-8"));
+                            command = "EXIT";
+                            outStream.write(command.getBytes("UTF-8"));
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    notif.setVisibility(View.VISIBLE);
+                                }
+                            });
+                        }catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    }
+                }).start();
             }
         });
 
@@ -58,6 +96,27 @@ public class homepage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent mlIntent = new Intent(getApplicationContext(), MLPage.class);
                 startActivity(mlIntent);
+            }
+        });
+
+        notif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notif.setVisibility(View.INVISIBLE);
+                new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            Socket socket = new Socket(getInet(), port);
+                            OutputStream outStream = socket.getOutputStream();
+                            String command = "STOP";
+                            outStream.write(command.getBytes("UTF-8"));
+                            command = "EXIT";
+                            outStream.write(command.getBytes("UTF-8"));
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    }
+                }).start();
             }
         });
     }

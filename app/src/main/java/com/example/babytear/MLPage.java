@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,10 +23,11 @@ import java.net.Socket;
 
 public class MLPage extends AppCompatActivity {
 
-    private Button why, exitMLbtn;
+    private Button exitMLbtn;
+    private ImageView why;
     public int port = 5560;
     public String thisMessage = "";
-    public TextView belly, burping, discomfort, hungry, tired, none;
+    public TextView belly, burping, discomfort, hungry, tired, none, defaultML;
 
     public InetAddress getInet() {
         InetAddress ip;
@@ -42,7 +44,7 @@ public class MLPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mlpage);
 
-        why = (Button) findViewById(R.id.MLwhy);
+        why = findViewById(R.id.MLwhy);
 
         belly=findViewById(R.id.textView1);
         burping=findViewById(R.id.textView2);
@@ -50,6 +52,7 @@ public class MLPage extends AppCompatActivity {
         hungry=findViewById(R.id.textView4);
         tired=findViewById(R.id.textView5);
         none=findViewById(R.id.textView6);
+        defaultML=findViewById(R.id.defaultML);
 
         why.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,24 +83,31 @@ public class MLPage extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         if (message.equals("belly pain")){
+                                            defaultML.setVisibility(View.VISIBLE);
                                             belly.setVisibility(View.VISIBLE);
                                         }
                                         else if(message.equals("burping")){
+                                            defaultML.setVisibility(View.VISIBLE);
                                             burping.setVisibility(View.VISIBLE);
                                         }
                                         else if(message.equals("discomfort")){
+                                            defaultML.setVisibility(View.VISIBLE);
                                             discomfort.setVisibility(View.VISIBLE);
                                         }
                                         else if(message.equals("--hungry--")){
+                                            defaultML.setVisibility(View.VISIBLE);
                                             hungry.setVisibility(View.VISIBLE);
                                         }
                                         else if(message.equals("---tired--")){
+                                            defaultML.setVisibility(View.VISIBLE);
                                             tired.setVisibility(View.VISIBLE);
                                         }
                                         else if(message.equals("---none---")){
+                                            defaultML.setVisibility(View.VISIBLE);
                                             none.setVisibility(View.VISIBLE);
                                         }
                                         else {
+                                            defaultML.setVisibility(View.VISIBLE);
                                             belly.setVisibility(View.VISIBLE);
                                             burping.setVisibility(View.VISIBLE);
                                             discomfort.setVisibility(View.VISIBLE);

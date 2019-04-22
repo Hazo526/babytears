@@ -1,6 +1,7 @@
 package com.example.babytear;
 
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import java.net.InetAddress;
 
 public class WhiteNoise extends AppCompatActivity {
     private Button whitenoiseplay, whitenoisesend, lullabyplay, lullabysend, choirplay, choirsend, whitenoisestop, lullabystop, choirstop;
+    private Button wnback;
     public int port = 5560;
     public InetAddress getInet() {
         InetAddress ip;
@@ -45,6 +47,8 @@ public class WhiteNoise extends AppCompatActivity {
         choirplay = findViewById(R.id.choirplay);
         choirsend = findViewById(R.id.choirsend);
         choirstop = findViewById(R.id.choirstop);
+
+        wnback=findViewById(R.id.wnback);
 
         final MediaPlayer whitenoisesound = MediaPlayer.create(this, R.raw.whitenoise);
         final MediaPlayer lullabysound = MediaPlayer.create(this, R.raw.lullaby);
@@ -194,6 +198,14 @@ public class WhiteNoise extends AppCompatActivity {
                         }
                     }
                 }).start();
+            }
+        });
+
+        wnback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent wnbackintent = new Intent(getApplicationContext(), homepage.class);
+                startActivity(wnbackintent);
             }
         });
     }
